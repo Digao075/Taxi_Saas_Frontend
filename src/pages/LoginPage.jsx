@@ -1,26 +1,23 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import authService from '../services/auth.service';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(''); 
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-const handleSubmit = async (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(''); 
-    setLoading(true); 
+    setError('');
+    setLoading(true);
 
     try {
-      const data = await authService.login(email, password);
+      const data = await authService.adminLogin(email, password);
       localStorage.setItem('authToken', data.token);
       navigate('/dashboard');
-      console.log('Login bem-sucedido!', data);
-      alert('Login realizado com sucesso! Token: ' + data.token);
-
-      
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Erro ao tentar fazer login.';
       setError(errorMessage);
@@ -28,6 +25,7 @@ const handleSubmit = async (event) => {
       setLoading(false);
     }
   };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '300px' }}>
@@ -36,8 +34,11 @@ const handleSubmit = async (event) => {
         <div>
           <label htmlFor="email">Email</label>
           <input
-            id="email" type="email" value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="email"
+            type="email"
+            placeholder="admin@email.com"
+            value={email} 
+            onChange={(event) => setEmail(event.target.value)}
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
         </div>
@@ -45,8 +46,11 @@ const handleSubmit = async (event) => {
         <div>
           <label htmlFor="password">Senha</label>
           <input
-            id="password" type="password" value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            id="password"
+            type="password"
+            placeholder="Sua senha"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
             style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
           />
         </div>

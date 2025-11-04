@@ -55,6 +55,15 @@ return (
       </nav>
 
       <h2>Corridas Recentes</h2>
+      <nav style={{ margin: '2rem 0', display: 'flex', gap: '2rem' }}>
+        <Link to="/dispatch" style={{ fontSize: '1.2rem', padding: '10px', background: '#007bff', color: 'white', borderRadius: '5px' }}>
+          TORRE DE CONTROLE (DESPACHO)
+        </Link>
+        <Link to="/drivers" style={{ fontSize: '1.2rem' }}>
+          Gerenciar Motoristas
+        </Link>
+      </nav>
+      
     </div>
   );
 }

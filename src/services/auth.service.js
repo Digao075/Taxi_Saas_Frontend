@@ -1,13 +1,12 @@
-import axios from 'axios';
-const API_URL = 'http://localhost:3333/api';
+import api from './api';
 
-const login = async (email, password) => {
+
+const adminLogin = async (email, password) => {
   try {
-    const response = await axios.post(API_URL + '/auth/login', {
+    const response = await api.post('/auth/admin/login', {
       email,
       password,
     });
-    
     return response.data;
   } catch (error) {
     throw error;
@@ -15,5 +14,5 @@ const login = async (email, password) => {
 };
 
 export default {
-  login,
+  adminLogin,
 };

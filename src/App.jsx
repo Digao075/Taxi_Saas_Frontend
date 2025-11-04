@@ -5,6 +5,7 @@ import DashboardPage from './pages/DashboardPage';
 import DriversPage from './pages/DriversPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import DriverDetailPage from './pages/DriverDetailPage';
+import DispatchPage from './pages/DispatchPage';
 
 function App() {
   return (
@@ -20,10 +21,11 @@ function App() {
           element={<ProtectedRoute><DriversPage /></ProtectedRoute>}
         />
         
+        
         <Route
           path="/drivers/:driverId"
-          element={<ProtectedRoute><DriverDetailPage /></ProtectedRoute>}
-        />
+          element={<ProtectedRoute><DriverDetailPage /></ProtectedRoute>}/>
+        <Route path="/dispatch" element={<ProtectedRoute><DispatchPage /></ProtectedRoute>} />
         
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
