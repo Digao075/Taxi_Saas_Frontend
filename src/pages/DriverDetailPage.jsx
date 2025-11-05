@@ -42,6 +42,16 @@ function DriverDetailPage() {
     }
   };
 
+const handleSetCommission = async (newRate) => {
+    try {
+      const updatedDriver = await driverService.updateDriver(driverId, { commission_rate: newRate });
+      setDriver(updatedDriver);
+      setFormData(updatedDriver);
+      alert(`Taxa do motorista atualizada para ${newRate * 100}%!`);
+    } catch (err) {
+      alert('Falha ao atualizar a taxa.');
+    }
+  };
   if (loading) return <div>Carregando detalhes...</div>;
   if (error) return <div>Erro: {error}</div>;
   if (!driver) return <div>Motorista não encontrado.</div>;
@@ -82,6 +92,20 @@ return (
             <p><strong>Nome Completo:</strong> {driver.full_name}</p>
             <p><strong>Email:</strong> {driver.email}</p>
             <p><strong>Status:</strong> {driver.status}</p>
+            <p><strong>Taxa de Comissão:</strong> {driver.commission_rate * 100}%</p>
+            <div style={{ background: '#f0f8ff', padding: '1rem', borderRadius: '8px', marginTop: '1rem' }}>
+            <h2>Promoção de Parceiro</h2>
+            <p>Taxa atual: <strong>{driver.commission_rate * 100}%</strong></p>
+            {driver.commission_rate === 0.25 ? (
+              <button onClick={() => handleSetCommission(0.20)} style={{ background: 'green', color: 'white' }}>
+                Ativar "Modo Parceiro" (20%)
+              </button>
+            ) : (
+              <button onClick={() => handleSetCommission(0.25)} style={{ background: 'orange' }}>
+                Reverter para Taxa Padrão (25%)
+              </button>
+            )}
+          </div>
           </div>
         </div>
       )}

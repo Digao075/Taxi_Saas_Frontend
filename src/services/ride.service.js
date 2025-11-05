@@ -29,8 +29,18 @@ const updateRide = async (rideId, data) => {
   }
 };
 
+const getFilteredRides = async (filters) => {
+  try {
+    const response = await api.get('/rides', { params: filters });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getAllRides,
   getRidesByStatus,
   updateRide,
+  getFilteredRides,
 };
